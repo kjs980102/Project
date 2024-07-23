@@ -25,7 +25,7 @@ class Safety :
         shackle_capacity=sling_capacity
         if weight<5000:
 
-            print(number)
+            print('총 양중 무게:',weight,'톤','작업 가능','필요 줄걸이 용량(1줄당):',sling_capacity,'필요 샤클 용량(1개당):',shackle_capacity)
         else:
             print('총 양중 무게:',weight,'톤','작업 불가능',weight-500,'톤','초과')
     def nylon_sling(self):
@@ -51,32 +51,38 @@ class Safety :
             print('총 양중 무게:',weight,'톤', '작업 불가능', weight-300,'톤','초과')
 
 
+while True:
+    type1=input('줄걸이 종류를 입력하세요:[chain,wire_rope,nylon_sling]:')
+    weight1=float(input('중량물 무게를 입력하세요(단위:톤):'))
+    weight2=float(input('양중함 무게를 입력하세요(단위:톤).[[0.1~1]:'))
+    weight3=float(input('줄걸이 용구 무게를 입력하세요(단위:톤).:'))
+    num=int(input('줄걸이 수를 입력하세요.[1,2,3,4]:'))
+    method=input('줄걸이 방법을 입력하세요[1자 걸이, 초크 걸이, U자형 걸이]:')
+    if num<2:
+        number=1#하중계수
+    else:
+        number=1.155
+    if method == '1자 걸이':
+        mode = 1  # 모드 계수
+    elif method == '초크 걸이':
+        mode = 0.8
+    elif method == 'U자형 걸이':
+        mode = 2
+    my_info=Safety(weight1,weight2,weight3,num,method,)
 
-type1=input('줄걸이 종류를 입력하세요:[chain,wire_rope,nylon_sling]:')
-weight1=float(input('중량물 무게를 입력하세요(단위:톤):'))
-weight2=float(input('양중함 무게를 입력하세요(단위:톤).[[0.1~1]:'))
-weight3=float(input('줄걸이 용구 무게를 입력하세요(단위:톤).:'))
-num=int(input('줄걸이 수를 입력하세요.[1,2,3,4]:'))
-method=input('줄걸이 방법을 입력하세요[1자 걸이, 초크 걸이, U자형 걸이]:')
-if num<2:
-    number=1#하중계수
-else:
-    number=1.155
-if method == '1자 걸이':
-    mode = 1  # 모드 계수
-elif method == '초크 걸이':
-    mode = 0.8
-elif method == 'U자형 걸이':
-    mode = 2
-my_info=Safety(weight1,weight2,weight3,num,method,)
+    if type1=='chain':
+        my_info.chain()
+    elif type1=='nylon_sling':
+        my_info.nylon_sling()
+    elif type1=='wire_rope':
+        my_info.wire_rope()
+    else:
+        print('잘못된 값을 입력하셨습니다.')
 
-if type1=='chain':
-    my_info.chain()
-elif type1=='nylon_sling':
-    my_info.nylon_sling()
-elif type1=='wire_rope':
-    my_info.wire_rope()
-else:
-    print('잘못된 값을 입력하셨습니다.')
+    answer = input("계속해서 다른 값으로 계산하시겠습니까? (y/n): ")
+    if answer.lower() != 'y':
+        print("프로그램을 종료합니다.")
+        break
+
 
 
